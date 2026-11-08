@@ -1,0 +1,156 @@
+{
+  "services": {
+    "5c07f0d2-cf3b-4999-9049-277f52ea6ef0": {
+      "icon": "https://raw.githubusercontent.com/two-workspaces/strapi/main/icon.svg",
+      "name": "Strapi",
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/admin",
+        "healthcheckTimeout": 300,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/two-workspaces/strapi",
+        "rootDirectory": null
+      },
+      "variables": {
+        "STRAPI_ADMIN_EMAIL": {
+          "defaultValue": "admin@${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Super admin login, created on first boot. Set your own email before deploying, or change it in Strapi afterwards",
+          "isOptional": false
+        },
+        "STRAPI_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(24, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}Aa1",
+          "description": "Super admin password, set on first boot only - copy it from here to log in, then change it in Strapi",
+          "isOptional": false
+        },
+        "PUBLIC_URL": {
+          "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Strapi's public URL - set it to your custom domain when you add one",
+          "isOptional": false
+        },
+        "HOST": {
+          "defaultValue": "::",
+          "description": "Listen on IPv4 and IPv6 so the private network reaches Strapi - leave as is",
+          "isOptional": false
+        },
+        "PORT": {
+          "defaultValue": "1337",
+          "description": "Port Strapi listens on - leave as is",
+          "isOptional": false
+        },
+        "DATABASE_CLIENT": {
+          "defaultValue": "postgres",
+          "description": "Database type - leave as is",
+          "isOptional": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "${{Postgres.DATABASE_URL}}",
+          "description": "Postgres - private network, leave as is",
+          "isOptional": false
+        },
+        "APP_KEYS": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}},${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}},${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}},${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Session keys - auto-generated, keep them secret",
+          "isOptional": false
+        },
+        "API_TOKEN_SALT": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Salt for API tokens - auto-generated, changing it invalidates every API token",
+          "isOptional": false
+        },
+        "ADMIN_JWT_SECRET": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Signs admin sessions - auto-generated, keep it secret",
+          "isOptional": false
+        },
+        "TRANSFER_TOKEN_SALT": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Salt for data-transfer tokens - auto-generated",
+          "isOptional": false
+        },
+        "JWT_SECRET": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Signs end-user (Users & Permissions) logins - auto-generated, keep it secret",
+          "isOptional": false
+        },
+        "ENCRYPTION_KEY": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Encrypts stored secrets - auto-generated, never change it",
+          "isOptional": false
+        },
+        "STRAPI_TELEMETRY_DISABLED": {
+          "defaultValue": "true",
+          "description": "No usage data sent to Strapi - set to false to allow it",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        },
+        "tcpProxies": {}
+      },
+      "volumeMounts": {
+        "e30533c7-ab3c-4b6d-82cc-df6e31d6ebdf": {
+          "mountPath": "/data"
+        }
+      }
+    },
+    "cb30599b-c903-412e-9753-eb0118cec300": {
+      "icon": "https://devicons.railway.app/i/postgresql.svg",
+      "name": "Postgres",
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "ghcr.io/railwayapp-templates/postgres-ssl:18"
+      },
+      "variables": {
+        "POSTGRES_DB": {
+          "defaultValue": "strapi",
+          "description": "Database name",
+          "isOptional": false
+        },
+        "POSTGRES_USER": {
+          "defaultValue": "strapi",
+          "description": "Database user",
+          "isOptional": false
+        },
+        "POSTGRES_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated database password",
+          "isOptional": false
+        },
+        "PGDATA": {
+          "defaultValue": "/var/lib/postgresql/data/pgdata",
+          "description": "Data subdirectory - keeps Postgres happy on Railway volumes",
+          "isOptional": false
+        },
+        "DATABASE_URL": {
+          "defaultValue": "postgresql://${{POSTGRES_USER}}:${{POSTGRES_PASSWORD}}@${{RAILWAY_PRIVATE_DOMAIN}}:5432/${{POSTGRES_DB}}",
+          "description": "Connection URL for Strapi - private network, leave as is",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Time for Postgres to shut down cleanly on redeploy",
+          "isOptional": false
+        }
+      },
+      "networking": {
+        "serviceDomains": {},
+        "tcpProxies": {}
+      },
+      "volumeMounts": {
+        "335d0e4f-43c2-4b24-87b3-6eed87204216": {
+          "mountPath": "/var/lib/postgresql/data"
+        }
+      }
+    }
+  }
+}
