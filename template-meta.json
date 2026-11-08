@@ -5,5 +5,7 @@
   "category": "CMS",
   "image": "https://raw.githubusercontent.com/two-workspaces/strapi/main/icon.svg",
   "card_desc": "Strapi 5, the open-source headless CMS: content types, REST and GraphQL-ready APIs and a media library. Postgres, uploads on a volume, and the super admin created on first boot, so nobody else can claim /admin.",
-  "deploy_marker": "two-workspaces/strapi"
+  "deploy_marker": "two-workspaces/strapi",
+  "id": "b0a4df81-28da-40e6-91e7-5daf7d568b1d",
+  "published": true
 }

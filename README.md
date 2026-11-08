@@ -49,7 +49,7 @@ Notes and limits:
 - The admin variables only matter on first boot. Change the password in Strapi afterwards.
 - Keep `ENCRYPTION_KEY`, `API_TOKEN_SALT` and `APP_KEYS` unchanged: changing them breaks stored secrets, API tokens or sessions.
 - Set `PUBLIC_URL` to your custom domain when you add one, so media URLs and the admin panel use it.
-- About 250 MB of RAM for Strapi and 50-100 MB for Postgres at idle. Builds take a few minutes, since the admin panel is compiled at build time.
+- About 150 MB of RAM for Strapi and 80-130 MB for Postgres at idle, so it fits the smallest plans. Builds take a few minutes, since the admin panel is compiled at build time.
 - Each template update moves to a newer Strapi release. Back up Postgres (Railway backups) before updating.
 
 ## Why Deploy Strapi on Railway?
